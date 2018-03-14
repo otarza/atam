@@ -1,0 +1,14 @@
+{
+  "name": "otarza/atam",
+  "type": "drupal-module",
+  "description": "Axelerant Tech Assesment module.",
+  "keywords": ["Drupal"],
+  "license": "GPL-2.0+",
+  "homepage": "https://github.com/otarza/atam",
+  "minimum-stability": "dev",
+  "support": {
+    "issues": "https://github.com/otarza/atam/issues",
+    "source": "https://github.com/otarza/atam"
+  },
+  "require": { }
+}

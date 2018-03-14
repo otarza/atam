@@ -1,0 +1,9 @@
+atam.page_json:
+  path: '/page_json/{site_api_key}/{nid}'
+  defaults:
+    _controller: '\Drupal\atam\Controller\PageJSONController::getPageJSON'
+    _title: 'PageJSON'
+  requirements:
+    _permission: 'access content'
+    siteapikey: '^[a-zA-Z0-9_]+'
+    nid: '^[0-9]+'

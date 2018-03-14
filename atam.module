@@ -1,0 +1,55 @@
+<?php
+
+/**
+ * @file
+ * Contains atam.module.
+ */
+
+use Drupal\Core\Form\FormStateInterface;
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ */
+function atam_form_system_site_information_settings_alter(&$form, FormStateInterface $form_state, $form_id)
+{
+    $site_config = \Drupal::config('system.site');
+
+    // New field - "Site API Key"
+    $form['site_information']['siteapikey'] = [
+        '#type' => 'textfield',
+        '#title' => t('Site API Key'),
+        '#description' => t('Enter site API key.'),
+        '#maxlength' => 64,
+        '#size' => 64,
+        '#default_value' => $site_config->get('siteapikey'),
+        '#weight' => '1',
+    ];
+
+    // Change submit button text to "Update Configuration".
+    $form['actions']['submit']['#value'] = t('Update Configuration');
+
+    // Add custom submit handler.
+    $form['#submit'][] = "atam_system_site_information_settings_submit_handler";
+}
+
+/**
+ * Custom submit handler for system_site_information_settings form.
+ * @param $form
+ * @param FormStateInterface $form_state
+ */
+function atam_system_site_information_settings_submit_handler($form, FormStateInterface $form_state)
+{
+    $api_key = $form_state->getValue('siteapikey');
+
+    // Check if new value is entered for siteapikey.
+    if ($form['site_information']['siteapikey']['#default_value'] != $api_key) {
+        $site_config = \Drupal::service('config.factory')->getEditable('system.site');
+        $site_config->set('siteapikey', $api_key)
+            ->save();
+
+        \Drupal::service('messenger')
+            ->addMessage(t('Site API Key has been set to @api_key',
+                    ['@api_key' => $api_key])
+            );
+    }
+}
