@@ -1,6 +1,6 @@
 name: 'ATAM'
 type: module
-description: 'Axelerant Tech Assesment Module.'
+description: 'Axelerant Tech Assessment Module.'
 core: 8.x
 package: 'ATAM'
 
